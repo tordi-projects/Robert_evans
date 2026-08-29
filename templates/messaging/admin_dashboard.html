@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container dash-shell">
+  <div class="dash-head">
+    <div>
+      <span class="eyebrow">Robert's inbox</span>
+      <h1 style="font-size:1.9rem;">Conversations
+        {% if total_unread %}<span class="notify-dot" style="vertical-align:middle;">{{ total_unread }} new</span>{% endif %}
+      </h1>
+    </div>
+    <a href="/django-admin/" class="pill-btn ghost" style="font-size:0.7rem;">Site admin</a>
+  </div>
+
+  <form method="get" class="search-bar">
+    <input type="text" name="q" value="{{ q }}" placeholder="Search customer name or email…">
+    <button type="submit" class="pill-btn ghost">Search</button>
+  </form>
+
+  {% if conversations %}
+    <div class="conv-list">
+      {% for c in conversations %}
+        <a class="conv-row" href="{% url 'messaging:admin_conversation' c.pk %}">
+          <div>
+            <div class="who">{{ c.customer.get_full_name|default:c.customer.username }}
+              <span class="topic-pill" style="margin-left:8px;">{{ c.get_topic_display }}</span>
+            </div>
+            {% with last=c.last_message %}
+              {% if last %}<div class="preview">{{ last.body }}</div>{% endif %}
+            {% endwith %}
+          </div>
+          <div class="right">
+            {% with unread=c.unread_for_staff %}
+              {% if unread %}<span class="notify-dot">{{ unread }}</span>{% endif %}
+            {% endwith %}
+            <span class="time">{{ c.updated_at|date:"M j, g:i A" }}</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">No conversations yet. Once a customer sends a message, it'll show up here.</div>
+  {% endif %}
+</div>
+{% endblock %}

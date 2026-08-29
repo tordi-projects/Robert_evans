@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ business.name }}{% endblock %}</title>
+  <meta name="description" content="{{ business.name }} — 24/7 residential & commercial plumbing and electrical service. Licensed, insured & bonded.">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+  <div class="pipeline" aria-hidden="true"></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="{% url 'core:home' %}" class="brand">
+        <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="22" stroke="#c1723d" stroke-width="2"/>
+          <path d="M24 10c5 6 9 10.5 9 16a9 9 0 1 1-18 0c0-5.5 4-10 9-16z" fill="#6fb8c9" opacity="0.9"/>
+          <path d="M27 15 L19 27 H25 L21 35 L31 21 H25 L27 15 Z" fill="#d7a83b"/>
+        </svg>
+        <span class="brand-text">Robert Evan's<small>Plumbing &amp; Electrician</small></span>
+      </a>
+
+      <div class="nav-links">
+        <a href="{% url 'core:home' %}#services">Services</a>
+        <a href="{% url 'core:about' %}">About</a>
+        {% if user.is_authenticated %}
+          {% if user.is_staff %}
+            <a href="{% url 'messaging:admin_dashboard' %}" class="badge-link">Inbox
+              {% if unread_count %}<span class="notify-dot">{{ unread_count }}</span>{% endif %}
+            </a>
+          {% else %}
+            <a href="{% url 'messaging:customer_dashboard' %}" class="badge-link">My messages
+              {% if unread_count %}<span class="notify-dot">{{ unread_count }}</span>{% endif %}
+            </a>
+          {% endif %}
+          <form action="{% url 'accounts:logout' %}" method="post" style="display:inline">
+            {% csrf_token %}
+            <button type="submit" class="pill-btn ghost">Log out</button>
+          </form>
+        {% else %}
+          <a href="{% url 'accounts:login' %}" class="pill-btn ghost">Log in</a>
+          <a href="{% url 'accounts:register' %}" class="pill-btn solid">Get help now</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    {% if messages %}
+      <div class="container" style="padding-top:20px;">
+        {% for m in messages %}
+          <div class="alert {{ m.tags }}">{{ m }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <strong style="color:var(--ink)">{{ business.name }}</strong><br>
+        {{ business.hours }} · Licensed, insured &amp; bonded
+      </div>
+      <div>
+        <a href="tel:{{ business.phone }}">{{ business.phone }}</a> ·
+        <a href="{% url 'core:home' %}#contact">Message us</a>
+      </div>
+      <div>© {% now "Y" %} {{ business.name }}. All rights reserved.</div>
+    </div>
+  </footer>
+
+</body>
+</html>

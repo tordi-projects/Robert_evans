@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="auth-wrap">
+    <span class="eyebrow">Account access</span>
+    <h1 style="font-size:1.8rem;">Log in</h1>
+    <div class="form-card">
+      {% if form.errors %}
+        <div class="alert error">Your username or password didn't match. Try again.</div>
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        <label for="id_username">Username</label>
+        <input type="text" name="username" id="id_username" required autofocus>
+        <label for="id_password">Password</label>
+        <input type="password" name="password" id="id_password" required>
+        <input type="hidden" name="next" value="{{ next }}">
+        <div style="margin-top:22px;">
+          <button type="submit" class="pill-btn solid" style="width:100%; justify-content:center;">Log in</button>
+        </div>
+      </form>
+      <p class="form-foot">No account yet? <a href="{% url 'accounts:register' %}" style="color:var(--copper-glow)">Create one</a> — it takes a minute.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

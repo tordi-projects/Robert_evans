@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container dash-shell">
+  <div class="dash-head">
+    <div>
+      <a href="{% url 'messaging:admin_dashboard' %}" style="font-family:var(--font-mono); font-size:0.76rem; color:var(--ink-faint);">&larr; All conversations</a>
+      <h1 style="font-size:1.9rem; margin-top:6px;">{{ conversation.customer.get_full_name|default:conversation.customer.username }}</h1>
+    </div>
+    <span class="topic-pill">{{ conversation.get_topic_display }}</span>
+  </div>
+
+  <p style="font-family:var(--font-mono); font-size:0.78rem; color:var(--ink-faint); margin-top:-14px; margin-bottom:22px;">
+    {{ conversation.customer.email }}
+    {% if conversation.customer.profile.phone %} · {{ conversation.customer.profile.phone }}{% endif %}
+  </p>
+
+  <div class="thread" id="thread">
+    {% for m in thread %}
+      <div class="bubble {% if m.sender_is_staff %}mine{% else %}theirs{% endif %}">
+        <span class="meta">{% if m.sender_is_staff %}You{% else %}{{ conversation.customer.get_full_name|default:conversation.customer.username }}{% endif %} · {{ m.created_at|date:"M j, g:i A" }}</span>
+        {{ m.body|linebreaksbr }}
+      </div>
+    {% endfor %}
+  </div>
+
+  <form method="post" class="reply-box">
+    {% csrf_token %}
+    {{ form.body }}
+    <button type="submit" class="pill-btn solid">Reply</button>
+  </form>
+</div>
+
+<script>
+  var t = document.getElementById('thread');
+  if (t) { t.scrollTop = t.scrollHeight; }
+</script>
+{% endblock %}

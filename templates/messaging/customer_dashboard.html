@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container dash-shell">
+  <div class="dash-head">
+    <div>
+      <span class="eyebrow">Your line to Robert</span>
+      <h1 style="font-size:1.9rem;">My messages</h1>
+    </div>
+    {% if conversation %}<span class="topic-pill">{{ conversation.get_topic_display }}</span>{% endif %}
+  </div>
+
+  {% if conversation %}
+    <div class="thread" id="thread">
+      {% for m in thread %}
+        <div class="bubble {% if m.sender_is_staff %}theirs{% else %}mine{% endif %}">
+          <span class="meta">{% if m.sender_is_staff %}Robert{% else %}You{% endif %} · {{ m.created_at|date:"M j, g:i A" }}</span>
+          {{ m.body|linebreaksbr }}
+        </div>
+      {% endfor %}
+    </div>
+
+    <form method="post" class="reply-box">
+      {% csrf_token %}
+      {{ reply_form.body }}
+      <button type="submit" class="pill-btn solid">Send</button>
+    </form>
+  {% else %}
+    <p style="color:var(--ink-dim); max-width:56ch;">
+      Start a conversation below and it'll land straight in Robert's inbox.
+      Replies show up right here — no email or phone tag needed.
+    </p>
+    <div class="ticket" style="max-width:560px;">
+      <span class="code">NEW TICKET</span>
+      <form method="post">
+        {% csrf_token %}
+        <label for="id_topic">{{ new_form.topic.label }}</label>
+        {{ new_form.topic }}
+        <label for="id_body">{{ new_form.body.label }}</label>
+        {{ new_form.body }}
+        <div style="margin-top:18px;">
+          <button type="submit" class="pill-btn solid">Send to Robert</button>
+        </div>
+      </form>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  var t = document.getElementById('thread');
+  if (t) { t.scrollTop = t.scrollHeight; }
+</script>
+{% endblock %}

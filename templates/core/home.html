@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">24/7 dispatch · Port Harcourt &amp; surrounding areas</span>
+      <h1>Water, wire &amp;<br><span class="accent">whatever it takes.</span></h1>
+      <p class="hero-lead">
+        {{ business.name }} handles the pipes and the panel — one crew, one call.
+        Residential and commercial. Emergency repairs, clean installs, and
+        maintenance that keeps flows and power running the way they should.
+      </p>
+
+      <div class="hero-actions">
+        {% if user.is_authenticated %}
+          <a href="{% url 'messaging:dashboard_redirect' %}" class="pill-btn solid">Go to my messages</a>
+        {% else %}
+          <a href="{% url 'accounts:register' %}" class="pill-btn solid">Message Robert now</a>
+          <a href="tel:{{ business.phone }}" class="pill-btn ghost">Call {{ business.phone }}</a>
+        {% endif %}
+      </div>
+
+      <div class="stat-strip">
+        <span class="stat-chip"><b>24/7</b> emergency service</span>
+        <span class="stat-chip"><b>Licensed</b> · insured &amp; bonded</span>
+        <span class="stat-chip"><b>{{ business.followers }}+</b> homes served</span>
+      </div>
+    </div>
+
+    <div class="hero-diagram">
+      <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pipeGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#e08a52"/>
+            <stop offset="1" stop-color="#8a4e27"/>
+          </linearGradient>
+        </defs>
+        <!-- pipe run -->
+        <path d="M20 60 H140 Q160 60 160 80 V140" stroke="url(#pipeGrad)" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <circle cx="20" cy="60" r="6" fill="#e08a52"/>
+        <text x="14" y="46" fill="#a9bab5" font-family="JetBrains Mono, monospace" font-size="9">COLD IN</text>
+
+        <!-- wire run, right-angled to contrast the pipe curve -->
+        <path d="M300 60 H200 V140" stroke="#6fb8c9" stroke-width="3" fill="none" stroke-dasharray="2 6" stroke-linecap="round"/>
+        <circle cx="300" cy="60" r="5" fill="#6fb8c9"/>
+        <text x="255" y="46" fill="#a9bab5" font-family="JetBrains Mono, monospace" font-size="9">120V</text>
+
+        <!-- fused junction -->
+        <circle cx="180" cy="170" r="34" fill="#132625" stroke="#d7a83b" stroke-width="2"/>
+        <path d="M180 150c4.5 5.5 8 9.5 8 14.5a8 8 0 1 1-16 0c0-5 3.5-9 8-14.5z" fill="#6fb8c9"/>
+        <path d="M186 176l-7 11h4l-5 9 10-13h-4l2-7z" fill="#d7a83b"/>
+        <line x1="160" y1="140" x2="180" y2="150" stroke="#e08a52" stroke-width="6" stroke-linecap="round"/>
+        <line x1="200" y1="140" x2="180" y2="150" stroke="#6fb8c9" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>
+
+        <!-- outputs -->
+        <path d="M180 204 V240" stroke="#e08a52" stroke-width="6" stroke-linecap="round"/>
+        <text x="150" y="256" fill="#a9bab5" font-family="JetBrains Mono, monospace" font-size="9">HOUSE SUPPLY</text>
+
+        <rect x="6" y="6" width="308" height="248" fill="none" stroke="#24433f" stroke-width="1" stroke-dasharray="4 4"/>
+      </svg>
+      <div class="hero-diagram-caption">
+        <span>SCHEMATIC · SUPPLY &amp; SERVICE</span>
+        <span>REV. 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="services">
+  <div class="container">
+    <div class="block-head">
+      <div>
+        <span class="eyebrow">What we fix</span>
+        <h2>Two trades. One dispatch.</h2>
+      </div>
+      <p>Every job is quoted before we start and backed by a crew that's licensed, insured, and shows up when we say we will.</p>
+    </div>
+
+    <div class="grid-3">
+      {% for s in services %}
+        <div class="ticket">
+          <span class="code">{{ s.code }} <span class="trade-tag {{ s.trade }}">{{ s.trade }}</span></span>
+          <h3>{{ s.name }}</h3>
+          <p>{{ s.desc }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <div class="block-head">
+      <div>
+        <span class="eyebrow">How it works</span>
+        <h2>From leak to fixed, in four steps.</h2>
+      </div>
+    </div>
+
+    <div class="steps">
+      {% for step in steps %}
+        <div class="step">
+          <span class="step-index">{{ forloop.counter }}/{{ steps|length }}</span>
+          <h4>{{ step.label }}</h4>
+          <p>{{ step.desc }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="block" id="contact">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <span class="eyebrow">Get in touch</span>
+        <h2>Tell Robert what's going on.</h2>
+        <p>Create a free account, describe the issue, and get replies straight to your own dashboard — no phone tag.</p>
+      </div>
+      <div class="hero-actions" style="margin:0;">
+        {% if user.is_authenticated %}
+          <a href="{% url 'messaging:dashboard_redirect' %}" class="pill-btn solid">Open my dashboard</a>
+        {% else %}
+          <a href="{% url 'accounts:register' %}" class="pill-btn solid">Create free account</a>
+          <a href="{% url 'accounts:login' %}" class="pill-btn ghost">I already have one</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

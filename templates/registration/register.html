@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="auth-wrap">
+    <span class="eyebrow">New here</span>
+    <h1 style="font-size:1.8rem;">Create your account</h1>
+    <div class="form-card">
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}<div class="helptext">{{ field.help_text|safe }}</div>{% endif %}
+          {% for error in field.errors %}<div class="field-errors">{{ error }}</div>{% endfor %}
+        {% endfor %}
+        <div style="margin-top:22px;">
+          <button type="submit" class="pill-btn solid" style="width:100%; justify-content:center;">Create account</button>
+        </div>
+      </form>
+      <p class="form-foot">Already have one? <a href="{% url 'accounts:login' %}" style="color:var(--copper-glow)">Log in</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
