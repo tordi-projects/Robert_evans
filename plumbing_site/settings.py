@@ -106,3 +106,20 @@ BUSINESS = {
     'hours': '24/7 Emergency Service',
     'followers': '275',
 }
+
+# ---- Web Push notifications ----
+# Lets a logged-in user get a phone/desktop notification (with sound, via the
+# OS) the instant a message is sent to them — even if the site isn't open.
+# Real key pair is committed for local/dev use; override both via env vars
+# for production so your own server holds the private key.
+VAPID_PUBLIC_KEY = os.environ.get(
+    'VAPID_PUBLIC_KEY',
+    'BBLKyn5KToZQoc8wkl1EjpSU8QdOQKPuAVkvkJjtH9inGprHfXDAJzehVOkDPQN7XeHh-KAPQjQNAJaupeqMlsM',
+)
+VAPID_PRIVATE_KEY_PATH = os.environ.get(
+    'VAPID_PRIVATE_KEY_PATH', str(BASE_DIR / 'vapid_private_key.pem')
+)
+VAPID_CLAIMS_EMAIL = os.environ.get(
+    'VAPID_CLAIMS_EMAIL', 'mailto:admin@robertevans-plumbing.example'
+)
+

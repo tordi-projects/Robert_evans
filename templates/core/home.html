@@ -4,65 +4,86 @@
 <section class="hero">
   <div class="container hero-grid">
     <div>
-      <span class="eyebrow">24/7 dispatch · Port Harcourt &amp; surrounding areas</span>
-      <h1>Water, wire &amp;<br><span class="accent">whatever it takes.</span></h1>
+      <span class="eyebrow">24/7 emergency dispatch · Licensed &amp; insured</span>
+      <h1>Your plumbing and<br><span class="accent">electrical</span>, handled by one crew.</h1>
       <p class="hero-lead">
-        {{ business.name }} handles the pipes and the panel — one crew, one call.
-        Residential and commercial. Emergency repairs, clean installs, and
-        maintenance that keeps flows and power running the way they should.
+        {{ business.name }} takes care of everything behind your walls — the pipes that move
+        water and the wiring that moves power. Tell us what's wrong, get a real answer from a
+        real person, and get it fixed by a licensed, insured, and bonded technician who
+        actually shows up when they say they will.
       </p>
 
       <div class="hero-actions">
         {% if user.is_authenticated %}
           <a href="{% url 'messaging:dashboard_redirect' %}" class="pill-btn solid">Go to my messages</a>
         {% else %}
-          <a href="{% url 'accounts:register' %}" class="pill-btn solid">Message Robert now</a>
-          <a href="tel:{{ business.phone }}" class="pill-btn ghost">Call {{ business.phone }}</a>
+          <a href="{% url 'accounts:register' %}" class="pill-btn solid">Get a free quote</a>
+          <a href="tel:{{ business.phone }}" class="pill-btn blue-solid">Call {{ business.phone }}</a>
         {% endif %}
       </div>
 
+      <div class="badge-row">
+        <div class="badge-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+          Licensed &amp; bonded
+        </div>
+        <div class="badge-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+          Fully insured
+        </div>
+        <div class="badge-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+          Upfront pricing
+        </div>
+      </div>
+
       <div class="stat-strip">
+        <span class="stat-chip"><span class="stars">★★★★★</span></span>
+        <span class="stat-chip"><b>{{ business.followers }}+</b> homes &amp; businesses served</span>
         <span class="stat-chip"><b>24/7</b> emergency service</span>
-        <span class="stat-chip"><b>Licensed</b> · insured &amp; bonded</span>
-        <span class="stat-chip"><b>{{ business.followers }}+</b> homes served</span>
       </div>
     </div>
 
     <div class="hero-diagram">
       <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="pipeGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#e08a52"/>
-            <stop offset="1" stop-color="#8a4e27"/>
-          </linearGradient>
-        </defs>
-        <!-- pipe run -->
-        <path d="M20 60 H140 Q160 60 160 80 V140" stroke="url(#pipeGrad)" stroke-width="8" fill="none" stroke-linecap="round"/>
-        <circle cx="20" cy="60" r="6" fill="#e08a52"/>
-        <text x="14" y="46" fill="#a9bab5" font-family="JetBrains Mono, monospace" font-size="9">COLD IN</text>
+        <path d="M20 60 H140 Q160 60 160 80 V140" stroke="#1e6fd9" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <circle cx="20" cy="60" r="6" fill="#1e6fd9"/>
+        <text x="10" y="46" fill="#55657a" font-family="Inter, sans-serif" font-size="10" font-weight="600">WATER SUPPLY</text>
 
-        <!-- wire run, right-angled to contrast the pipe curve -->
-        <path d="M300 60 H200 V140" stroke="#6fb8c9" stroke-width="3" fill="none" stroke-dasharray="2 6" stroke-linecap="round"/>
-        <circle cx="300" cy="60" r="5" fill="#6fb8c9"/>
-        <text x="255" y="46" fill="#a9bab5" font-family="JetBrains Mono, monospace" font-size="9">120V</text>
+        <path d="M300 60 H200 V140" stroke="#f5a623" stroke-width="4" fill="none" stroke-dasharray="2 7" stroke-linecap="round"/>
+        <circle cx="300" cy="60" r="5" fill="#f5a623"/>
+        <text x="248" y="46" fill="#55657a" font-family="Inter, sans-serif" font-size="10" font-weight="600">120V POWER</text>
 
-        <!-- fused junction -->
-        <circle cx="180" cy="170" r="34" fill="#132625" stroke="#d7a83b" stroke-width="2"/>
-        <path d="M180 150c4.5 5.5 8 9.5 8 14.5a8 8 0 1 1-16 0c0-5 3.5-9 8-14.5z" fill="#6fb8c9"/>
-        <path d="M186 176l-7 11h4l-5 9 10-13h-4l2-7z" fill="#d7a83b"/>
-        <line x1="160" y1="140" x2="180" y2="150" stroke="#e08a52" stroke-width="6" stroke-linecap="round"/>
-        <line x1="200" y1="140" x2="180" y2="150" stroke="#6fb8c9" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>
-
-        <!-- outputs -->
-        <path d="M180 204 V240" stroke="#e08a52" stroke-width="6" stroke-linecap="round"/>
-        <text x="150" y="256" fill="#a9bab5" font-family="JetBrains Mono, monospace" font-size="9">HOUSE SUPPLY</text>
-
-        <rect x="6" y="6" width="308" height="248" fill="none" stroke="#24433f" stroke-width="1" stroke-dasharray="4 4"/>
+        <circle cx="180" cy="172" r="40" fill="#ffffff" stroke="#1e6fd9" stroke-width="2"/>
+        <path d="M180 150c5 6 9 10.5 9 16a9 9 0 1 1-18 0c0-5.5 4-10 9-16z" fill="#1e6fd9"/>
+        <path d="M187 178l-8 12h5l-6 10 11-14h-5l3-8z" fill="#f5a623"/>
+        <line x1="160" y1="140" x2="178" y2="152" stroke="#1e6fd9" stroke-width="7" stroke-linecap="round"/>
+        <line x1="200" y1="140" x2="182" y2="152" stroke="#f5a623" stroke-width="4" stroke-dasharray="2 7" stroke-linecap="round"/>
+        <path d="M180 212 V240" stroke="#1e6fd9" stroke-width="7" stroke-linecap="round"/>
+        <text x="128" y="256" fill="#55657a" font-family="Inter, sans-serif" font-size="10" font-weight="600">YOUR HOME, TAKEN CARE OF</text>
       </svg>
-      <div class="hero-diagram-caption">
-        <span>SCHEMATIC · SUPPLY &amp; SERVICE</span>
-        <span>REV. 2026</span>
-      </div>
+      <div class="hero-diagram-caption">One call. Both trades. No juggling contractors.</div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-bar">
+  <div class="container trust-grid">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div><div class="t-title">Licensed &amp; bonded</div><div class="t-sub">Verified on request</div></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <div><div class="t-title">24/7 availability</div><div class="t-sub">Real people answer</div></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <div><div class="t-title">Upfront quotes</div><div class="t-sub">No surprise fees</div></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7 8 .5-6 5.5 2 8-7-4-7 4 2-8-6-5.5L9 9z"/></svg>
+      <div><div class="t-title">{{ business.followers }}+ jobs done</div><div class="t-sub">Residential &amp; commercial</div></div>
     </div>
   </div>
 </section>
@@ -70,17 +91,25 @@
 <section class="block" id="services">
   <div class="container">
     <div class="block-head">
-      <div>
-        <span class="eyebrow">What we fix</span>
-        <h2>Two trades. One dispatch.</h2>
-      </div>
-      <p>Every job is quoted before we start and backed by a crew that's licensed, insured, and shows up when we say we will.</p>
+      <span class="eyebrow">What we fix</span>
+      <h2>Two trades, handled by people who know both.</h2>
+      <p class="lede">
+        Every job is quoted before we start and backed by a crew that's licensed, insured, and
+        shows up when we say we will — whether it's a dripping faucet or a full panel swap.
+      </p>
     </div>
 
     <div class="grid-3">
       {% for s in services %}
-        <div class="ticket">
-          <span class="code">{{ s.code }} <span class="trade-tag {{ s.trade }}">{{ s.trade }}</span></span>
+        <div class="card {{ s.trade }}">
+          <div class="icon-wrap">
+            {% if s.trade == 'plumbing' %}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c-4 0-6-2.5-6-6 0-4 6-11 6-11s6 7 6 11c0 3.5-2 6-6 6z"/></svg>
+            {% else %}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            {% endif %}
+          </div>
+          <span class="trade-tag {{ s.trade }}">{{ s.trade }}</span>
           <h3>{{ s.name }}</h3>
           <p>{{ s.desc }}</p>
         </div>
@@ -89,24 +118,65 @@
   </div>
 </section>
 
-<section class="block">
+<section class="block alt">
   <div class="container">
     <div class="block-head">
-      <div>
-        <span class="eyebrow">How it works</span>
-        <h2>From leak to fixed, in four steps.</h2>
-      </div>
+      <span class="eyebrow">How it works</span>
+      <h2>From "something's wrong" to fixed, in four steps.</h2>
+      <p class="lede">No hold music, no chasing down a callback. Everything happens in your own dashboard.</p>
     </div>
 
     <div class="steps">
       {% for step in steps %}
         <div class="step">
-          <span class="step-index">{{ forloop.counter }}/{{ steps|length }}</span>
+          <div class="step-index">{{ forloop.counter }}</div>
           <h4>{{ step.label }}</h4>
           <p>{{ step.desc }}</p>
         </div>
       {% endfor %}
     </div>
+  </div>
+</section>
+
+<section class="block" id="reviews">
+  <div class="container">
+    <div class="block-head">
+      <span class="eyebrow">What customers say</span>
+      <h2>Trusted by homeowners and businesses alike.</h2>
+      <p class="lede">We'd rather let the people we've worked for do the talking.</p>
+    </div>
+
+    <div class="grid-3">
+      {% for r in reviews %}
+        <div class="review-card">
+          <span class="stars">★★★★★</span>
+          <p>&ldquo;{{ r.body }}&rdquo;</p>
+          <div class="who">
+            <div class="review-avatar">{{ r.initials }}</div>
+            <div>
+              <div class="who-name">{{ r.name }}</div>
+              <div class="who-meta">{{ r.meta }}</div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="block alt" id="faq">
+  <div class="container" style="max-width:820px;">
+    <div class="block-head">
+      <span class="eyebrow">Common questions</span>
+      <h2>Frequently asked questions</h2>
+    </div>
+
+    {% for f in faqs %}
+      <details class="faq-item">
+        <summary>{{ f.q }}</summary>
+        <p>{{ f.a }}</p>
+      </details>
+    {% endfor %}
   </div>
 </section>
 
@@ -116,14 +186,17 @@
       <div>
         <span class="eyebrow">Get in touch</span>
         <h2>Tell Robert what's going on.</h2>
-        <p>Create a free account, describe the issue, and get replies straight to your own dashboard — no phone tag.</p>
+        <p>
+          Create a free account, describe the issue, and get replies straight to your own
+          dashboard — with an alert on your phone the moment we reply, if you'd like one.
+        </p>
       </div>
       <div class="hero-actions" style="margin:0;">
         {% if user.is_authenticated %}
           <a href="{% url 'messaging:dashboard_redirect' %}" class="pill-btn solid">Open my dashboard</a>
         {% else %}
           <a href="{% url 'accounts:register' %}" class="pill-btn solid">Create free account</a>
-          <a href="{% url 'accounts:login' %}" class="pill-btn ghost">I already have one</a>
+          <a href="{% url 'accounts:login' %}" class="pill-btn ghost" style="border-color:#fff; color:#fff;">I already have one</a>
         {% endif %}
       </div>
     </div>

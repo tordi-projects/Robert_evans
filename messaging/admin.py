@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Conversation, Message
+from .models import Conversation, Message, PushSubscription
 
 
 class MessageInline(admin.TabularInline):
@@ -20,3 +20,9 @@ class ConversationAdmin(admin.ModelAdmin):
 class MessageAdmin(admin.ModelAdmin):
     list_display = ('conversation', 'sender', 'sender_is_staff', 'is_read', 'created_at')
     list_filter = ('sender_is_staff', 'is_read')
+
+
+@admin.register(PushSubscription)
+class PushSubscriptionAdmin(admin.ModelAdmin):
+    list_display = ('user', 'user_agent', 'created_at')
+    search_fields = ('user__username', 'user__email')

@@ -1,38 +1,84 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="block" style="padding-top:60px;">
-  <div class="container" style="max-width:760px;">
-    <span class="eyebrow">About the shop</span>
-    <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Residential. Commercial.<br>Reliable, either way.</h1>
-    <p style="font-size:1.02rem;">
-      {{ business.name }} covers both sides of a working home: the pipes that
-      move water and the wiring that moves power. That means one crew and one
-      point of contact for jobs that used to take two contractors — a water
-      heater swap that also needs a dedicated circuit, a remodel that touches
-      both trades, or a straightforward emergency at 2am.
+
+<section class="block" style="padding-top:56px;">
+  <div class="container" style="max-width:800px;">
+    <span class="eyebrow">About the company</span>
+    <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Residential. Commercial. Reliable, either way.</h1>
+    <p class="lede">
+      {{ business.name }} was built around a simple idea: the pipes that move water through
+      your home and the wiring that moves power through it are both part of the same system,
+      and you shouldn't need two different contractors — with two different schedules and two
+      different invoices — to keep either one working.
     </p>
     <p>
-      We're licensed, insured, and bonded, and we back every job with a
-      written quote before any work starts. No surprise line items.
+      We're a licensed, insured, and bonded plumbing and electrical company serving both
+      residential and commercial customers. Whether it's a 2 a.m. burst pipe, a breaker panel
+      that's finally given up, or a full remodel that touches both trades at once, one crew and
+      one point of contact sees the job through from the first message to the final walkthrough.
+    </p>
+    <p>
+      Every job starts with an honest, written quote — before any work begins, not after. We
+      explain what's wrong, what it will cost to fix, and what your options are, in plain
+      language. No pressure, no upsells you didn't ask for, and no invoice that looks nothing
+      like the estimate you agreed to.
     </p>
 
-    <div class="grid-2" style="margin-top:36px;">
-      <div class="ticket">
-        <span class="code">CREW</span>
-        <h3>Plumbing</h3>
-        <p>Emergency repairs, installations, drain &amp; sewer work, maintenance plans for homes and businesses.</p>
+    <div class="grid-2" style="margin-top:40px;">
+      <div class="card">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c-4 0-6-2.5-6-6 0-4 6-11 6-11s6 7 6 11c0 3.5-2 6-6 6z"/></svg>
+        </div>
+        <span class="trade-tag plumbing">Plumbing crew</span>
+        <h3>Water, drains &amp; fixtures</h3>
+        <p>
+          Emergency repairs, water heater and fixture installations, drain and sewer work,
+          and ongoing maintenance plans for homes and businesses that would rather prevent a
+          problem than pay to fix one.
+        </p>
       </div>
-      <div class="ticket">
-        <span class="code">CREW</span>
-        <h3>Electrical</h3>
-        <p>Panel upgrades, wiring &amp; rewiring, inspections and preventative maintenance.</p>
+      <div class="card electrical">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <span class="trade-tag electrical">Electrical crew</span>
+        <h3>Power, panels &amp; wiring</h3>
+        <p>
+          Panel upgrades, new circuits and rewiring, and regular inspections that catch the
+          kind of small electrical issues that turn into expensive — or dangerous — problems
+          if they're left alone.
+        </p>
       </div>
     </div>
 
-    <div class="cta-band" style="margin-top:48px;">
+    <div class="block-head left" style="margin-top:56px;">
+      <span class="eyebrow">Why people choose us</span>
+      <h2>What working with us actually looks like</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>Straight answers</h3>
+        <p>You get a real assessment and a real price, in writing, before anyone picks up a tool.</p>
+      </div>
+      <div class="card">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>Shows up on time</h3>
+        <p>We give you a window and we keep it — and we message you if anything changes, before you have to ask.</p>
+      </div>
+      <div class="card">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Backed by our work</h3>
+        <p>Every installation and repair is covered by our workmanship guarantee — if something's not right, we come back and make it right.</p>
+      </div>
+    </div>
+
+    <div class="cta-band" style="margin-top:56px;">
       <div>
-        <h2 style="font-size:1.4rem;">Have a job for us?</h2>
-        <p>Send the details through your dashboard and Robert will reply with a plan.</p>
+        <span class="eyebrow">Ready when you are</span>
+        <h2 style="font-size:1.5rem;">Have a job for us?</h2>
+        <p>Send the details through your dashboard and Robert will reply personally with a plan.</p>
       </div>
       <div class="hero-actions" style="margin:0;">
         {% if user.is_authenticated %}

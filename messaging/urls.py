@@ -8,4 +8,6 @@ urlpatterns = [
     path('dashboard/', views.customer_dashboard, name='customer_dashboard'),
     path('admin/', views.admin_dashboard, name='admin_dashboard'),
     path('admin/<int:pk>/', views.admin_conversation, name='admin_conversation'),
+    path('push/subscribe/', views.push_subscribe, name='push_subscribe'),
+    path('push/unsubscribe/', views.push_unsubscribe, name='push_unsubscribe'),
 ]

@@ -38,6 +38,23 @@ class Conversation(models.Model):
         return self.messages.order_by('-created_at').first()
 
 
+class PushSubscription(models.Model):
+    """One browser/device subscription for a logged-in user. A user can have
+    several (phone, laptop, etc.) — we notify all of them."""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='push_subscriptions'
+    )
+    endpoint = models.URLField(max_length=500, unique=True)
+    p256dh = models.CharField(max_length=255)
+    auth = models.CharField(max_length=255)
+    user_agent = models.CharField(max_length=255, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Push subscription for {self.user} ({self.endpoint[:40]}…)'
+
+
 class Message(models.Model):
     conversation = models.ForeignKey(
         Conversation, on_delete=models.CASCADE, related_name='messages'
@@ -61,3 +78,4 @@ class Message(models.Model):
         self.sender_is_staff = bool(self.sender.is_staff)
         super().save(*args, **kwargs)
         self.conversation.save(update_fields=['updated_at'])
+
